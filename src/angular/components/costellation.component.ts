@@ -4,12 +4,12 @@ import {
   ElementRef,
   inject,
   Injector,
+  Input,
+  input,
+  resource,
   signal,
   viewChildren,
 } from "@angular/core";
-import {
-  animate
-} from "motion";
 import { StarComponent } from "./star.component";
 import { PlanetComponent } from "./planet.component";
 
@@ -18,8 +18,8 @@ import { PlanetComponent } from "./planet.component";
   imports: [StarComponent, PlanetComponent],
   template: `
     <div id="sun"></div>
-    @for(planet of planets(); let index = $index; track planet.id) {
-        <app-planet [index]="index"></app-planet>
+    @for(planet of planets.value(); let index = $index; track planet.id) {
+    <app-planet [index]="index" [label]="planet.name" [url]="planet.html_url"></app-planet>
     }
     <app-star [type]="0"></app-star>
     <app-star [type]="1"></app-star>
@@ -56,48 +56,5 @@ import { PlanetComponent } from "./planet.component";
   ],
 })
 export class CostellationComponent {
-  planets = signal([
-    {
-      name: "Mercury",
-      id: "Mercury",
-      url: "",
-    },
-    {
-      name: "Venus",
-      id: "Venus",
-      url: "",
-    },
-    {
-      name: "Earth",
-      id: "Earth",
-      url: "",
-    },
-    {
-      name: "Mars",
-      id: "Mars",
-      url: "",
-    },
-    {
-      name: "Jupiter",
-      id: "Jupiter",
-      url: "",
-    },
-    {
-      name: "Saturn",
-      id: "Saturn",
-      url: "",
-    },
-    {
-      name: "Uranus",
-      id: "Uranus",
-      url: "",
-    },
-    {
-      name: "Neptune",
-      id: "Neptune",
-      url: "",
-    },
-  ]);
-
-  orbits = viewChildren<ElementRef<Element>>("orbit");
+  planets = resource({loader: ()=>fetch("https://api.github.com/users/frabaddo/repos").then(res => res.json())});
 }
