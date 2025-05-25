@@ -1,14 +1,6 @@
 import {
-  afterNextRender,
   Component,
-  ElementRef,
-  inject,
-  Injector,
-  Input,
-  input,
   resource,
-  signal,
-  viewChildren,
 } from "@angular/core";
 import { StarComponent } from "./star.component";
 import { PlanetComponent } from "./planet.component";
