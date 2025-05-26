@@ -1,7 +1,7 @@
 import {
-  Component,
-  resource,
+  Component
 } from "@angular/core";
+import { httpResource, provideHttpClient } from "@angular/common/http";
 import { StarComponent } from "./star.component";
 import { PlanetComponent } from "./planet.component";
 
@@ -48,5 +48,20 @@ import { PlanetComponent } from "./planet.component";
   ],
 })
 export class CostellationComponent {
-  planets = resource({loader: ()=>fetch("https://api.github.com/users/frabaddo/repos").then(res => res.json())});
+  static clientProviders = [provideHttpClient()];
+  static renderProviders = [provideHttpClient()];
+
+  planets = httpResource<any[]>("https://api.github.com/users/frabaddo/repos");
+//   {value: signal([
+//     {
+//         id: 1,
+//         name: "",
+//         html_url: "#"
+//     },
+//     {
+//         id: 1,
+//         name: "",
+//         html_url: "#"
+//     }
+//   ])}
 }

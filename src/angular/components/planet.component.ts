@@ -5,20 +5,23 @@ import {
   inject,
   Injector,
   input,
+  signal,
 } from "@angular/core";
 import { animate } from "motion";
 
 @Component({
   selector: "app-planet",
   template: `
-    <div class="axi">
-      <a [href]="url()" class="planet" style="animation-range: {{ i * 5 }}%;">
-        <img src="/github-mark-white.svg" alt="Costellation" />
-        <!-- <p>
-          {{ label() }}
-        </p> -->
-      </a>
-    </div>
+  <div class="axi-point">
+      <div class="axi">
+        <a [href]="url()" class="planet" style="animation-range: {{ i * 5 }}%;">
+          <img src="/github-mark-white.svg" alt="Costellation" />
+          <!-- <p>
+            {{ label() }}
+          </p> -->
+        </a>
+      </div>
+  </div>
   `,
   styles: [
     `
@@ -29,33 +32,47 @@ import { animate } from "motion";
         position: absolute;
         top: calc(50% - calc(var(--size) / 2));
         left: calc(50% - calc(var(--size) / 2));
-        .axi {
-          transform-style: preserve-3d;
-          .planet {
-            width: var(--size);
-            aspect-ratio: 1/1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: anchor-center;
-            border-radius: 50%;
-            background: black;
-            p {
-              color: white;
-              text-align: center;
-              font-size: 0.8rem;
-              width: 5rem;
-              white-space: pre-wrap;
-              word-break: break-all;
+        .axi-point{
+            transform-style: preserve-3d;
+            .axi {
+              transform-style: preserve-3d;
+              .planet {
+                width: var(--size);
+                aspect-ratio: 1/1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: anchor-center;
+                border-radius: 50%;
+                background: black;
+                p {
+                  color: white;
+                  text-align: center;
+                  font-size: 0.8rem;
+                  width: 5rem;
+                  white-space: pre-wrap;
+                  word-break: break-all;
+                }
+                img {
+                  display: block;
+                  width: 100%;
+                }
+                .name {
+                  color: white;
+                }
+              }
             }
-            img {
-              display: block;
-              width: 100%;
-            }
-            .name {
-              color: white;
-            }
-          }
+        }
+        &::after {
+          content: "";
+          width: calc(var(--disatance) * 2);
+          aspect-ratio: 1/1;
+          border: 1px solid #FFFFFF40;
+          border-radius: 50%;
+          position: absolute;
+          top: calc(-1 * var(--disatance) + 10px);
+          left: calc(-1 * var(--disatance) + 10px);
+          transform: rotateX(calc(90deg + var(--angle)));
         }
         a {
           cursor: pointer;
@@ -63,6 +80,9 @@ import { animate } from "motion";
       }
     `,
   ],
+  host: {
+    "[style]": "'--disatance: '+ distance() +'px; --angle:' + angle() +'deg;'"
+  }
 })
 export class PlanetComponent {
   injector = inject(Injector);
@@ -70,10 +90,13 @@ export class PlanetComponent {
   index = input<number>(0);
   label = input<string>("");
   url = input<string>("");
+  distance = signal<number>(0);
+  angle = signal<number>(0);
   ngAfterViewInit() {
     afterNextRender(
       () => {
-        let angle = -20; //this.randomIntFromInterval(-60, 60);
+        let angle = -40; //this.randomIntFromInterval(-60, 60);
+        this.angle.set(angle);
         let anglesArrayBase = new Array(10)
           .fill(0)
           .map((_, i) => (i * angle) / 10);
@@ -90,11 +113,11 @@ export class PlanetComponent {
         let distance = (this.index() + 4) * 30; //this.randomIntFromInterval(50, 250);
         // let distance = (this.index() + 2) * 25; //this.randomIntFromInterval(50, 250);
         //let duration = Math.pow(this.index() + 5, 2) / 6;
-        let duration = (10 * 300) / distance;
+        let duration = (300) / Math.sqrt(distance);
         let animation = animate(
           [
             [
-              this.element.nativeElement,
+              this.element.nativeElement.querySelector(".axi-point"),
               {
                 rotateY: rotationAngleArray,
                 ["z-index"]: [
@@ -135,6 +158,7 @@ export class PlanetComponent {
           }
         );
         animation2.time = animation.time;
+        this.distance.set(distance);
       },
       { injector: this.injector }
     );
