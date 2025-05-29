@@ -6,6 +6,8 @@ import { Component, computed, input } from "@angular/core";
   styles: [
     `
       :host {
+        position: fixed;
+        top: 0;
         display: block;
         width: 1px;
         height: 1px;

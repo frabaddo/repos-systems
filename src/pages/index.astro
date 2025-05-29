@@ -1,13 +1,138 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
 import { CostellationComponent } from "../angular/components/costellation.component";
+import { StarComponent } from "../angular/components/star.component";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    if (data.message) {
+      throw new Error(data.message);
+    }
+    return data;
+  })
+  .catch((error) => {
+    console.error("Error fetching repositories:", error);
+    return [{
+		id: 1,
+	  name: "Test 1",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	},
+	{
+	  id: 2,
+	  name: "Test 2",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	},
+	{
+	  id: 3,
+	  name: "Test 3",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	},
+	{
+	  id: 4,
+	  name: "Test 4",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	},
+	{
+	  id: 5,
+	  name: "Test 5",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	},
+	{
+	  id: 6,
+	  name: "Test 6",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	},
+	{
+	  id: 7,
+	  name: "Test 7",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	},
+	{
+	  id: 8,
+	  name: "Test 8",
+	  description: "Failed to load repositories.",
+	  html_url: ""
+	}
+];
+  });
 ---
 
 <Layout>
-	<CostellationComponent client:load/>
+  <CostellationComponent {...{ planets: repos }} client:load />
+  <StarComponent {...{ type: 0 }} server:defer />
+  <StarComponent {...{ type: 1 }} server:defer />
+  <StarComponent {...{ type: 2 }} server:defer />
+  <StarComponent {...{ type: 3 }} server:defer />
+
+  <div class="repos-container">
+    {
+      repos.map((repo) => (
+        <div class="repo">
+          <h2>{repo.name}</h2>
+          <p>{repo.description}</p>
+          <a href={repo.html_url} target="_blank">
+            View on GitHub
+          </a>
+        </div>
+      ))
+    }
+  </div>
 </Layout>
+
+<style>
+	body{
+		background: linear-gradient(to right,#000,#111);
+	}
+	.repos-container {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+		padding: 2rem;
+	}
+
+	.repo {
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px);
+		border-radius: 10px;
+		padding: 1.5rem;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.repo:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+	}
+
+	.repo h2 {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+		color: #fff;
+	}
+
+	.repo p {
+		font-size: 1rem;
+		margin-bottom: 1rem;
+		color: #ccc;
+	}
+
+	.repo a {
+		font-size: 1rem;
+		color: #1e90ff;
+		text-decoration: none;
+	}
+
+	.repo a:hover {
+		text-decoration: underline;
+	}
+</style>

@@ -1,7 +1,4 @@
-import {
-  Component
-} from "@angular/core";
-import { httpResource, provideHttpClient } from "@angular/common/http";
+import { Component, computed, input } from "@angular/core";
 import { StarComponent } from "./star.component";
 import { PlanetComponent } from "./planet.component";
 
@@ -9,23 +6,35 @@ import { PlanetComponent } from "./planet.component";
   selector: "app-costellation",
   imports: [StarComponent, PlanetComponent],
   template: `
-    <div id="sun"></div>
-    @for(planet of planets.value(); let index = $index; track planet.id) {
-    <app-planet [index]="index" [label]="planet.name" [url]="planet.html_url"></app-planet>
-    }
-    <app-star [type]="0"></app-star>
-    <app-star [type]="1"></app-star>
-    <app-star [type]="2"></app-star>
-    <app-star [type]="3"></app-star>
+    <div class="costellation">
+      <div id="sun"></div>
+      @for(planet of planets(); let index = $index; track planet.id) {
+      <app-planet
+        [index]="index"
+        [label]="planet.name"
+        [url]="planet.html_url"
+      ></app-planet>
+      }
+    </div>
   `,
+  host: {
+    "[style]": "'--fix-position:' + fixPosition() +'px'",
+  },
   styles: [
     `
       :host {
-        background: linear-gradient(to bottom, #000, #111);
         width: 100%;
         height: 100%;
         perspective: 600px;
         display: block;
+        position: relative;
+      }
+
+      .costellation {
+        transform-style: preserve-3d;
+        height: 100%;
+        top: calc(-100px - var(--fix-position, 0px));
+        position: relative;
       }
 
       #sun {
@@ -36,10 +45,10 @@ import { PlanetComponent } from "./planet.component";
         aspect-ratio: 1/1;
         background: radial-gradient(
           circle,
-          #a9870c 0%,
-          #f9d71c 50%,
+          #f9d71cdd 50%,
           #f9d71c 100%
         );
+        box-shadow: 0 0 84px orange;
         border-radius: 50%;
         transform-style: preserve-3d;
         z-index: 200;
@@ -48,20 +57,21 @@ import { PlanetComponent } from "./planet.component";
   ],
 })
 export class CostellationComponent {
-  static clientProviders = [provideHttpClient()];
-  static renderProviders = [provideHttpClient()];
+  message = input<string>();
 
-  planets = httpResource<any[]>("https://api.github.com/users/frabaddo/repos");
-//   {value: signal([
-//     {
-//         id: 1,
-//         name: "",
-//         html_url: "#"
-//     },
-//     {
-//         id: 1,
-//         name: "",
-//         html_url: "#"
-//     }
-//   ])}
+  planets = input<any[]>([]);
+
+  fixPosition = computed(() => Math.max(0, this.planets().length - 10) * 20);
+  //   {value: signal([
+  //     {
+  //         id: 1,
+  //         name: "",
+  //         html_url: "#"
+  //     },
+  //     {
+  //         id: 1,
+  //         name: "",
+  //         html_url: "#"
+  //     }
+  //   ])}
 }
