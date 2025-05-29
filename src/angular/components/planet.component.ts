@@ -1,46 +1,77 @@
 import {
   afterNextRender,
   Component,
+  computed,
   ElementRef,
   inject,
-  Injector,
   input,
   signal,
 } from "@angular/core";
-import { animate } from "motion";
 
 @Component({
   selector: "app-planet",
   template: `
-    <div class="axi">
-      <a [href]="url()" class="planet" style="animation-range: {{ i * 5 }}%;">
-        <img src="/github-mark-white.svg" alt="Costellation" />
-        <!-- <p>
-              {{ label() }}
-            </p> -->
-      </a>
+    <div class="orbit-plane">
+      <div class="orbit">
+        <div class="axi">
+          <div class="planet-container">
+            <a [href]="url()" class="planet">
+              <img src="/github-mark-white.svg" alt="Costellation" />
+              <!-- <p>
+                    {{ label() }}
+                  </p> -->
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   `,
   styles: [
     `
       :host {
         --size: 20px;
-        display: block;
         transform-style: preserve-3d;
         position: absolute;
-        top: calc(50%);
-        left: calc(50%);
-        animation-composition: add;
+        top: 50%;
+        left: 50%;
+        .orbit-plane{
+          position: relative;
+          transform-style: preserve-3d;
+          transform: rotateX(40deg) translate(-50%,-50%) rotateZ(var(--start-angle, 0deg));
+        }
+        .orbit {
+          animation-composition: add;
+          position: relative;
+          transform-style: preserve-3d;
+          animation: orbitAnimation var(--duration) linear infinite;
+          &::after {
+            content: "";
+            width: calc(var(--disatance) * 2);
+            aspect-ratio: 1/1;
+            border: 1px solid #ffffff40;
+            border-radius: 50%;
+            position: absolute;
+            top: calc(50%);
+            left: calc(50%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+          }
+        }
         .axi {
           transform-style: preserve-3d;
           height: var(--disatance);
           width: 1px;
           position: absolute;
           bottom: 0;
+          .planet-container{
+            transform: rotateZ(calc(-1 * var(--start-angle, 0deg)));
+            transform-style: preserve-3d;
+          }
           .planet {
+            --z-index-fix: 1;
             position: absolute;
-            top: calc(var(--size) / 2 * -5);//calc(var(--size) / -2);
-            left: calc(50%);
+            top: calc(var(--size) / 2 * -5);
+            left: calc(var(--size) / 2 * -5);
             animation-composition: add;
             width: calc(var(--size) * 5);
             aspect-ratio: 1/1;
@@ -50,20 +81,22 @@ import { animate } from "motion";
             align-items: anchor-center;
             border-radius: 50%;
             background: transparent;
+            animation: animatePlanet var(--duration) linear infinite;
+            z-index: calc(var(--distance) + calc(var(--z-index-fix) * 200 ));
             &::after {
               content: "";
               background: #ffffff20;
               width: 100%;
               height: 100%;
-              top: calc(50% var(--size) /2);
-              left: calc(50% var(--size) /2);
+              top: calc(50% var(--size) / 2);
+              left: calc(50% var(--size) / 2);
               position: absolute;
               border-radius: 50%;
               transform: scale(0);
               transition: transform 0.6s ease-in-out;
             }
             &:hover::after {
-                transform: scale(1);
+              transform: scale(1);
             }
             p {
               color: white;
@@ -83,85 +116,50 @@ import { animate } from "motion";
             }
           }
         }
-        &::after {
-          content: "";
-          width: calc(var(--disatance) * 2);
-          aspect-ratio: 1/1;
-          border: 1px solid #ffffff40;
-          border-radius: 50%;
-          position: absolute;
-          top: calc(50%);
-          left: calc(50%);
-          transform: translate(-50%, -50%);
-          pointer-events: none;
-        }
         a {
           cursor: pointer;
+        }
+      }
+      @keyframes orbitAnimation {
+        0% {
+          transform: rotateZ(0deg);
+        }
+        100% {
+          transform: rotateZ(360deg);
+        }
+      }
+      @keyframes animatePlanet {
+        0%{
+          transform: rotateZ(0deg);
+          --z-index-fix: 1;
+        }
+        25%{
+          --z-index-fix: -1;
+        }
+        50%{
+          --z-index-fix: -1;
+        }
+        75%{
+          --z-index-fix: 1;
+        }
+        100%{
+          transform: rotateZ(-360deg);
+          --z-index-fix: 1;
         }
       }
     `,
   ],
   host: {
-    "[style]": "'--disatance: '+ distance() +'px; --angle:' + angle() +'deg;'",
+    "[style]": "'--disatance: '+ distance() +'px; --angle:' + angle() +'deg; --duration:' + duration() +'s; --start-angle:' + startAngle() +'deg;'",
   },
 })
 export class PlanetComponent {
-  injector = inject(Injector);
   element = inject(ElementRef);
   index = input<number>(0);
   label = input<string>("");
   url = input<string>("");
-  distance = signal<number>(0);
-  angle = signal<number>(0);
-  ngAfterViewInit() {
-    afterNextRender(
-      () => {
-        let distance = (this.index() + 4) * 30; //this.randomIntFromInterval(50, 250);
-        // let distance = (this.index() + 2) * 25; //this.randomIntFromInterval(50, 250);
-        let angle = 40; //this.randomIntFromInterval(-60, 60);
-        this.angle.set(angle);
-        this.distance.set(distance);
-        let duration = 300 / Math.sqrt(distance);
-        let animation = animate(
-          [
-            [
-              this.element.nativeElement,
-              {
-                rotateZ: [0, 360],
-                rotateX: [angle, angle],
-                translateX: ["-50%", "-50%"],
-                translateY: ["-50%", "-50%"],
-              },
-            ],
-            [
-              this.element.nativeElement.querySelector(".planet"),
-              {
-                rotateZ: [0, -360],
-                translateX: ["-50%", "-50%"],
-                //rotateX: [-1 * angle, -1 * angle],
-                ["z-index"]: [
-                  200 + distance,
-                  200 - distance,
-                  200 - distance,
-                  200 + distance,
-                  200 + distance,
-                ],
-              },
-              {
-                at: "<",
-              },
-            ],
-          ],
-          { repeat: Infinity, duration: duration, ease: "linear" }
-        );
-        animation.time = duration * Math.random();
-      },
-      { injector: this.injector }
-    );
-  }
-
-  randomIntFromInterval(min: number, max: number) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+  distance = computed(()=>(this.index() + 4) * 30);
+  angle = signal<number>(40);
+  duration = computed(()=>300 / Math.sqrt(this.distance()));
+  startAngle = signal<number>(360 * Math.random())
 }

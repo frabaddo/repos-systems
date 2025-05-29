@@ -68,7 +68,7 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
 ---
 
 <Layout>
-  <CostellationComponent {...{ planets: repos }} client:load />
+  <CostellationComponent {...{ planets: repos }} server:defer />
   <StarComponent {...{ type: 0 }} server:defer />
   <StarComponent {...{ type: 1 }} server:defer />
   <StarComponent {...{ type: 2 }} server:defer />
