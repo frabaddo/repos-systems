@@ -12,20 +12,21 @@ import { Component, computed, input } from "@angular/core";
         width: 1px;
         height: 1px;
         background: transparent;
-    }
-    ::ng-deep @keyframes animStar {
-      0% {
-        transform: translateY(0);
+        animation: animStar var(--duration) linear infinite,
       }
-      to {
-        transform: translateY(-2000px);
+      @keyframes animStar {
+        0% {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-2000px);
+        }
       }
-    }
     `,
   ],
   host: {
-    "[style]": "style()"
-  }
+    "[style]": "style()",
+  },
 })
 export class StarComponent {
   type = input<0 | 1 | 2 | 3>(0);
@@ -54,7 +55,7 @@ export class StarComponent {
     //return `box-shadow: ${this.stars()}; animation: animStar ${this.duration()}s linear infinite;`
     return {
       "box-shadow": `${this.stars()}`,
-      "animation": `animStar ${this.duration()}s linear infinite`,
+      "--duration": this.duration() + "s"
     };
   });
 }

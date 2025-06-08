@@ -88,12 +88,10 @@ import {
               background: #ffffff20;
               width: 100%;
               height: 100%;
-              top: calc(50% var(--size) / 2);
-              left: calc(50% var(--size) / 2);
               position: absolute;
               border-radius: 50%;
               transform: scale(0);
-              transition: transform 0.6s ease-in-out;
+              transition: transform 0.3s ease-out;
             }
             &:hover::after {
               transform: scale(1);
