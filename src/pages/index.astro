@@ -103,7 +103,9 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
           <div class="box">
             <div class="content">
               <h2>{repo.name}</h2>
-              <p>{repo.description} </p>
+              {
+                repo.description ? <p>{repo.description} </p> : <></>
+              }
               <a href={repo.html_url} target="_blank">
                 View on GitHub
               </a>
