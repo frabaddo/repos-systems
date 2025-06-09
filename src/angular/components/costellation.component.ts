@@ -44,13 +44,31 @@ import { PlanetComponent } from "./planet.component";
         width: 3rem;
         aspect-ratio: 1/1;
         background: radial-gradient(circle at center, #FFD700, #FFA500);
-        box-shadow: 
-          0 0 30px 10px #FFD700,   /* bagliore principale */
-          0 0 60px 20px #FFA500,   /* bagliore arancio */
-          0 0 100px 40px #FF8C00;  /* alone esterno */
+        animation: animateSun 10s linear infinite;
         border-radius: 50%;
         transform-style: preserve-3d;
         z-index: 200;
+      }
+
+      @keyframes animateSun {
+        0%{
+          box-shadow: 
+          0 0 30px 10px #FFD700,   /* bagliore principale */
+          0 0 60px 20px #FFA500,   /* bagliore arancio */
+          0 0 100px 40px #FF8C00;  /* alone esterno */
+        }
+        50%{
+          box-shadow: 
+          0 0 30px 10px #FFD700,   /* bagliore principale */
+          0 0 90px 40px #FFA500,   /* bagliore arancio */
+          0 0 100px 40px #FF8C00;  /* alone esterno */
+        }
+        100%{
+          box-shadow: 
+          0 0 30px 10px #FFD700,   /* bagliore principale */
+          0 0 60px 20px #FFA500,   /* bagliore arancio */
+          0 0 100px 40px #FF8C00;  /* alone esterno */
+        }
       }
     `,
   ],
