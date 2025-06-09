@@ -27,7 +27,7 @@ import { Component, computed, input } from '@angular/core';
             color: white;
             font-size: 6rem; 
             overflow: visible;
-            opacity: calc(0.00003 * var(--depth) * -1 + 0.6);
+            opacity: calc(0.00003 * var(--depth) * -1 + 0.3);
         }
         .animated{
             transform: translateY(0);
