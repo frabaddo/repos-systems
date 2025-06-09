@@ -38,6 +38,12 @@ import {
           position: relative;
           transform-style: preserve-3d;
           transform: rotateX(40deg) translate(-50%,-50%) rotateZ(var(--start-angle, 0deg));
+          opacity: 1;
+          transition: all 1s ease;
+          transition-delay: calc((var(--distance) * 15ms) - 1500ms);
+          @starting-style {
+            opacity: 0;
+          }
         }
         .orbit {
           animation-composition: add;
@@ -46,7 +52,7 @@ import {
           animation: orbitAnimation var(--duration) linear infinite;
           &::after {
             content: "";
-            width: calc(var(--disatance) * 2);
+            width: calc(var(--distance) * 2px);
             aspect-ratio: 1/1;
             border: 1px solid #ffffff40;
             border-radius: 50%;
@@ -59,7 +65,7 @@ import {
         }
         .axi {
           transform-style: preserve-3d;
-          height: var(--disatance);
+          height: calc(var(--distance) * 1px);
           width: 1px;
           position: absolute;
           bottom: 0;
@@ -82,7 +88,7 @@ import {
             border-radius: 50%;
             background: transparent;
             animation: animatePlanet var(--duration) linear infinite;
-            z-index: calc(var(--distance) + calc(var(--z-index-fix) * 200 ));
+            z-index: calc(var(--distance) * 1px + calc(var(--z-index-fix) * 200px ));
             &::after {
               content: "";
               background: #ffffff20;
@@ -148,7 +154,7 @@ import {
     `,
   ],
   host: {
-    "[style]": "'--disatance: '+ distance() +'px; --angle:' + angle() +'deg; --duration:' + duration() +'s; --start-angle:' + startAngle() +'deg;'",
+    "[style]": "'--distance: '+ distance() +'; --angle:' + angle() +'deg; --duration:' + duration() +'s; --start-angle:' + startAngle() +'deg;'",
   },
 })
 export class PlanetComponent {
