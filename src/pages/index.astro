@@ -76,15 +76,15 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
 ---
 
 <Layout>
-  <ShootingStarsComponent {...{ labels: repos.map(r=>r.name) }} server:defer />
+  <ShootingStarsComponent {...({ labels: repos.map(r=>r.name) } as any)} />
   <div class="snap-container">
     <div id="costellation-container">
       <h1 class="title">Repos Systems</h1>
-      <CostellationComponent {...{ planets: repos }} server:defer />
-      <StarComponent {...{ type: 0 }} server:defer />
-      <StarComponent {...{ type: 1 }} server:defer />
-      <StarComponent {...{ type: 2 }} server:defer />
-      <StarComponent {...{ type: 3 }} server:defer />
+      <CostellationComponent {...({ planets: repos } as any)} />
+      <StarComponent {...({ type: 0 } as any)} />
+      <StarComponent {...({ type: 1 } as any)} />
+      <StarComponent {...({ type: 2 } as any)} />
+      <StarComponent {...({ type: 3 } as any)} />
 
       <div class="go-down-arrow">
         <a href="#repos-container">

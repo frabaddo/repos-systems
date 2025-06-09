@@ -7,9 +7,5 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [angular()],
-
-  adapter: node({
-    mode: 'standalone'
-  })
+  integrations: [angular()]
 });
