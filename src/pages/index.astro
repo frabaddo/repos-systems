@@ -79,7 +79,7 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
   <ShootingStarsComponent {...{ labels: repos.map(r=>r.name) }} server:defer />
   <div class="snap-container">
     <div id="costellation-container">
-      <h1>Repos Systems</h1>
+      <h1 class="title">Repos Systems</h1>
       <CostellationComponent {...{ planets: repos }} server:defer />
       <StarComponent {...{ type: 0 }} server:defer />
       <StarComponent {...{ type: 1 }} server:defer />
@@ -125,6 +125,33 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
   h1,
   h2 {
     font-family: Cyberverse, sans-serif;
+  }
+
+  .title{
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(
+      to right,
+      #FFA500,
+      #FFD700,
+      #FFFFFF,
+      #FFFFFF,
+      #FFD700
+    );
+    background-size: 400%;
+    background-position: 0% center;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: sunFade 4s ease-in-out forwards;
+  }
+
+  @keyframes sunFade {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 100% center;
+    }
   }
 
   .snap-container {

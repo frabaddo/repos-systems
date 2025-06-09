@@ -43,12 +43,11 @@ import { PlanetComponent } from "./planet.component";
         left: calc(50% - 1.5rem);
         width: 3rem;
         aspect-ratio: 1/1;
-        background: radial-gradient(
-          circle,
-          #f9d71cdd 50%,
-          #f9d71c 100%
-        );
-        box-shadow: 0 0 84px orange;
+        background: radial-gradient(circle at center, #FFD700, #FFA500);
+        box-shadow: 
+          0 0 30px 10px #FFD700,   /* bagliore principale */
+          0 0 60px 20px #FFA500,   /* bagliore arancio */
+          0 0 100px 40px #FF8C00;  /* alone esterno */
         border-radius: 50%;
         transform-style: preserve-3d;
         z-index: 200;
