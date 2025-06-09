@@ -1,10 +1,9 @@
 import { Component, computed, input } from "@angular/core";
-import { StarComponent } from "./star.component";
 import { PlanetComponent } from "./planet.component";
 
 @Component({
   selector: "app-costellation",
-  imports: [StarComponent, PlanetComponent],
+  imports: [PlanetComponent],
   template: `
     <div class="costellation">
       <div id="sun"></div>

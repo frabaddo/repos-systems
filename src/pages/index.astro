@@ -3,7 +3,15 @@ import Layout from "../layouts/Layout.astro";
 
 import { CostellationComponent } from "../angular/components/costellation.component";
 import { StarComponent } from "../angular/components/star.component";
-
+import { ShootingStarsComponent } from "../angular/components/shootingstars.component"
+// await fetch("https://api.github.com/users/frabaddo/repos")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     if (data.message) {
+//       throw new Error(data.message);
+//     }
+//     return data;
+//   })
 const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
   .then((response) => response.json())
   .then((data) => {
@@ -68,6 +76,7 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
 ---
 
 <Layout>
+  <ShootingStarsComponent {...{ labels: repos.map(r=>r.name) }} server:defer />
   <div class="snap-container">
     <div id="costellation-container">
       <h1>Repos Systems</h1>
@@ -238,15 +247,35 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
     position: relative;
     display: flex;
     flex-direction: column;
+    
+    animation: cardEntry 1s linear;
+    animation-duration: 1ms;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+  }
+
+  @keyframes cardEntry {
+
+    0%{
+      opacity: 0;
+      transform: translateX(2rem);
+    }
+    100%{
+      opacity: 1;
+      transform: translateX(0rem);
+    }
+  }
+
+  .box{
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
   }
 
   .box .content {
     position: relative;
     padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    z-index: 2;
     color: #fff;
     max-width: 100%;
     display: flex;
@@ -256,13 +285,12 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
     flex-direction: column;
   }
 
-  .box::after {
+  /* .box::after {
     content: "";
     position: absolute;
     inset: 0;
     backdrop-filter: blur(1px);
-    z-index: 1;
-  }
+  } */
 
   .box h2 {
     font-size: 1.5rem;
