@@ -37,7 +37,7 @@ import {
         .orbit-plane{
           position: relative;
           transform-style: preserve-3d;
-          transform: rotateX(40deg) translate(-50%,-50%) rotateZ(var(--start-angle, 0deg));
+          transform: rotateX(var(--angle, 40deg)) translate(-50%,-50%) rotateZ(var(--start-angle, 0deg));
           opacity: 1;
           transition: all 1s ease;
           transition-delay: calc((var(--distance) * 15ms) - 1500ms);
@@ -154,7 +154,7 @@ import {
     `,
   ],
   host: {
-    "[style]": "'--distance: '+ distance() +'; --angle:' + angle() +'deg; --duration:' + duration() +'s; --start-angle:' + startAngle() +'deg;'",
+    "[style]": "'--distance: '+ distance() +'; --duration:' + duration() +'s; --start-angle:' + startAngle() +'deg;'",
   },
 })
 export class PlanetComponent {
@@ -163,7 +163,6 @@ export class PlanetComponent {
   label = input<string>("");
   url = input<string>("");
   distance = computed(()=>(this.index() + 4) * 30);
-  angle = signal<number>(40);
   duration = computed(()=>300 / Math.sqrt(this.distance()));
   startAngle = signal<number>(360 * Math.random())
 }

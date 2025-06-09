@@ -28,12 +28,13 @@ import { PlanetComponent } from "./planet.component";
         perspective: 600px;
         display: block;
         position: relative;
+        --angle: 40deg;
       }
 
       .costellation {
         transform-style: preserve-3d;
         height: 100%;
-        top: calc(-100px - var(--fix-position, 0px));
+        top: calc(-50px - var(--fix-position, 0px));
         position: relative;
       }
 
