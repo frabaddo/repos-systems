@@ -87,7 +87,7 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
       <StarComponent {...({ type: 3 } as any)} />
 
       <div class="go-down-arrow">
-        <a href="#repos-container">
+        <a href="#repos-container" aria-label="Go to repos list">
           <div class="arrows-container">
             <div class="chevron"></div>
             <div class="chevron"></div>
