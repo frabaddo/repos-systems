@@ -1,13 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Repositories from "../components/repositories.astro";
-import Experiences from "../components/experiences.astro";
+import Repositories from "../components/Repositories.astro";
+import Experiences from "../components/Experiences.astro";
 ---
 
 <Layout>
   <div class="snap-container">
     <Experiences></Experiences>
-    <Repositories client:visible></Repositories>
+    <Repositories></Repositories>
   </div>
   
   <style is:global>
