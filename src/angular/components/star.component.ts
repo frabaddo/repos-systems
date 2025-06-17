@@ -2,24 +2,29 @@ import { Component, computed, input } from "@angular/core";
 
 @Component({
   selector: "app-star",
-  template: ``,
+  template: `<div class="star"></div>`,
   styles: [
     `
       :host {
+        display: contents;
+      }
+      .star {
         position: fixed;
         top: 0;
         display: block;
-        width: 1px;
-        height: 1px;
+        width: var(--size, 2px);
+        height: var(--size, 2px);
+        border-radius: 50%;
         background: transparent;
-        animation: animStar var(--duration) linear infinite,
+        animation: animStar var(--duration) linear infinite;
+        box-shadow: var(--box-shadow);
       }
       @keyframes animStar {
         0% {
           transform: translateY(0);
         }
         to {
-          transform: translateY(-2000px);
+          transform: translateY(-1500px);
         }
       }
     `,
@@ -42,20 +47,35 @@ export class StarComponent {
   duration = computed(() => {
     switch (this.type()) {
       case 0:
-        return 100;
+        return 70;
       case 1:
-        return 150;
+        return 90;
       case 2:
-        return 200;
+        return 120;
       case 3:
-        return 600;
+        return 150;
     }
   });
+
+  size = computed(() => {
+    switch (this.type()) {
+      case 0:
+        return 1;
+      case 1:
+        return 2;
+      case 2:
+        return 2;
+      case 3:
+        return 3;
+    }
+  });
+
   style = computed(() => {
     //return `box-shadow: ${this.stars()}; animation: animStar ${this.duration()}s linear infinite;`
     return {
-      "box-shadow": `${this.stars()}`,
-      "--duration": this.duration() + "s"
+      "--box-shadow": `${this.stars()}`,
+      "--duration": this.duration() + "s",
+      "--size": this.size() + "px",
     };
   });
 }

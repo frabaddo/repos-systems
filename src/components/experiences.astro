@@ -1,0 +1,103 @@
+---
+
+---
+
+<div class="experiences-container">
+  <h2 class="sun-title">MY EXPERIENCES</h2>
+  <div class="resume-list">
+    <div class="box resume-element">
+      <div class="content">
+        <h3>Senior Frontend Web Developer</h3>
+        <p><small>5 / 2022 - oggi</small></p>
+        <p>
+          Presso Sysdata S.p.A / Globant.
+          <a href="https://www.globant.com">https://www.globant.com</a>
+        </p>
+        <p>
+          Direzione di team front end Sviluppo portali web per aziende dei
+          settori Banking / Insurance / Energy / Automotive
+        </p>
+      </div>
+    </div>
+    <div class="box resume-element">
+      <div class="content">
+        <h3>Frontend Web developer</h3>
+        <p><small>7 / 2021 - 5 / 2022</small></p>
+        <p>
+          Presso Quix S.R.L.
+          <a href="https://www.quixconsulting.com/it/"
+            >https://www.quixconsulting.com/it/</a
+          >
+        </p>
+        <p>Sviluppo applicazioni cross-platform e web</p>
+      </div>
+    </div>
+    <div class="box resume-element">
+      <div class="content">
+        <h3>Founder - CTO e Full Stack Developer</h3>
+        <p><small>5 / 2018 - 7 / 2021</small></p>
+        <p>Presso Critical Adventures S.R.L.</p>
+        <p>
+          Sviluppo fullstack di applicazioni cross-platform e web, Sviluppo
+          soluzione server e aws, Gestione tirocini
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .experiences-container {
+    scroll-snap-align: start;
+    padding: 2rem 0;
+    display: block;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .resume-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(30rem, 1fr);
+    gap: 4rem;
+    box-sizing: border-box;
+    align-content: flex-start;
+    justify-content: start;
+    overflow-x: auto;
+    width: 100%;
+    padding: 1rem 2rem;
+    /* scrollbar styling (opzionale) */
+    scrollbar-width: thin;
+    scrollbar-color: #ffd166 #222;
+  }
+  .resume-element {
+    z-index: 1;
+    box-sizing: border-box;
+  }
+  .resume-element .content h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .resume-element .content p {
+    margin: 0.3rem 0;
+    color: #e0e0e0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .resume-element .content p small {
+    color: #ffd166;
+    font-size: 0.98rem;
+    font-style: italic;
+  }
+  .resume-element .content a {
+    color: #90caf9;
+    text-decoration: underline;
+    word-break: break-all;
+    transition: color 0.2s;
+  }
+  .resume-element .content a:hover {
+    color: #ffd166;
+  }
+</style>

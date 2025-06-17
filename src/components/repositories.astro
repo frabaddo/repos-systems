@@ -1,0 +1,288 @@
+---
+export const prerender = false
+import { CostellationComponent } from "../angular/components/costellation.component";
+import { StarComponent } from "../angular/components/star.component";
+import { ShootingStarsComponent } from "../angular/components/shootingstars.component"
+const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.message) {
+      throw new Error(data.message);
+    }
+    return data;
+  })
+  .catch((error) => {
+    console.error("Error fetching repositories:", error);
+    return [
+      {
+        id: 1,
+        name: "Test 1",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+      {
+        id: 2,
+        name: "Test 2",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+      {
+        id: 3,
+        name: "Test 3",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+      {
+        id: 4,
+        name: "Test 4",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+      {
+        id: 5,
+        name: "Test 5",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+      {
+        id: 6,
+        name: "Test 6",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+      {
+        id: 7,
+        name: "Test 7",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+      {
+        id: 8,
+        name: "Test 8",
+        description: "Failed to load repositories.",
+        html_url: "",
+      },
+    ];
+  });
+---
+
+    <!-- <ShootingStarsComponent {...({ labels: repos.map(r=>r.name) } as any)} /> -->
+    <div id="costellation-container">
+      <h2 class="sun-title">My Repositories</h2>
+      <CostellationComponent {...({ planets: repos } as any)} client:visible/>
+      <StarComponent {...({ type: 0 } as any)} />
+      <StarComponent {...({ type: 1 } as any)} />
+      <StarComponent {...({ type: 2 } as any)} />
+      <StarComponent {...({ type: 3 } as any)} />
+
+      <div class="go-down-arrow">
+        <a href="#repos-container" aria-label="Go to repos list">
+          <div class="arrows-container">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div id="repos-container">
+      {
+        repos.map((repo) => (
+          <div class="box">
+            <div class="content">
+              <h3>{repo.name}</h3>
+              {
+                repo.description ? <p>{repo.description} </p> : <></>
+              }
+              <a href={repo.html_url} target="_blank">
+                View on GitHub
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  
+  <style>
+  
+    #costellation-container {
+      display: block;
+      height: 100vh;
+      scroll-snap-align: start;
+      position: relative;
+    }
+  
+    #costellation-container h2 {
+      color: white;
+      position: absolute;
+      top: 1rem;
+      width: 35rem;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 3rem;
+      letter-spacing: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    .box .content {
+      display: flex;
+      flex: 1;
+      gap: 2rem;
+      flex-direction: column;
+    }
+
+    .go-down-arrow {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      padding-bottom: 2rem;
+      width: 100%;
+      bottom: 0;
+    }
+  
+    .arrows-container {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      height: 6rem;
+      width: 6rem;
+    }
+  
+    .chevron {
+      position: absolute;
+      width: calc(0.6rem * 3.5);
+      height: calc(0.6rem * 0.8);
+      opacity: 0;
+      transform: scale(0.3);
+      animation: move-chevron 3s ease-out infinite;
+    }
+  
+    .chevron:first-child {
+      animation: move-chevron 3s ease-out 1s infinite;
+    }
+  
+    .chevron:nth-child(2) {
+      animation: move-chevron 3s ease-out 2s infinite;
+    }
+  
+    .chevron:before,
+    .chevron:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 50%;
+      background: #2c3e50;
+    }
+  
+    .chevron:before {
+      left: 0;
+      transform: skewY(30deg);
+    }
+  
+    .chevron:after {
+      right: 0;
+      width: 50%;
+      transform: skewY(-30deg);
+    }
+  
+    @keyframes move-chevron {
+      25% {
+        opacity: 1;
+      }
+      33.3% {
+        opacity: 1;
+        transform: translateY(calc(0.6rem * 0));
+      }
+      66.6% {
+        opacity: 1;
+        transform: translateY(calc(0.6rem * 1.4));
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(calc(0.6rem * 4.2)) scale(0.5);
+      }
+    }
+    #repos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 4rem;
+      padding: 2rem 8rem 5rem 8rem;
+      scroll-snap-align: start;
+      box-sizing: border-box;
+      min-height: 100vh;
+      align-content: flex-start;
+    }
+  
+    @media (max-width: 1000px) {
+      #repos-container {
+        padding: 2rem 2rem 5rem 2rem;
+      }
+    }
+  
+    .box {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      
+      animation: cardEntry 1s linear;
+      animation-duration: 1ms;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  
+    @keyframes cardEntry {
+  
+      0%{
+        opacity: 0;
+        transform: translateX(2rem);
+      }
+      100%{
+        opacity: 1;
+        transform: translateX(0rem);
+      }
+    }
+  
+    /* .box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(1px);
+    } */
+  
+    .box h3 {
+      font-size: 1.5rem;
+      white-space: pre-line;
+      word-break: break-word;
+      color: #fff;
+      margin: 0;
+    }
+  
+    .box p {
+      font-size: 1.1em;
+      margin: 0;
+      line-height: 1.4em;
+    }
+  
+    .box a {
+      display: inline-block;
+      font-size: 1.1em;
+      color: #111;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: auto;
+      margin-bottom: 1rem;
+    }
+  
+    .box a:hover {
+      background: #ffcf4d;
+      box-shadow: 0 1px 15px rgba(1, 1, 1, 0.2);
+    }
+  </style>

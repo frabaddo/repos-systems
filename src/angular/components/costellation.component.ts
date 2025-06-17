@@ -79,16 +79,5 @@ export class CostellationComponent {
   planets = input<any[]>([]);
 
   fixPosition = computed(() => Math.max(0, this.planets().length - 10) * 20);
-  //   {value: signal([
-  //     {
-  //         id: 1,
-  //         name: "",
-  //         html_url: "#"
-  //     },
-  //     {
-  //         id: 1,
-  //         name: "",
-  //         html_url: "#"
-  //     }
-  //   ])}
+  
 }

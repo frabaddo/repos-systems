@@ -29,7 +29,6 @@ import {
   styles: [
     `
       :host {
-        --size: 20px;
         transform-style: preserve-3d;
         position: absolute;
         top: 50%;
@@ -76,10 +75,10 @@ import {
           .planet {
             --z-index-fix: 1;
             position: absolute;
-            top: calc(var(--size) / 2 * -5);
-            left: calc(var(--size) / 2 * -5);
+            top: calc(var(--size) * -1 / 2 - 30px);
+            left: calc(var(--size) * -1 / 2 - 30px);
             animation-composition: add;
-            width: calc(var(--size) * 5);
+            width: calc(var(--size) + 60px);
             aspect-ratio: 1/1;
             display: flex;
             flex-direction: column;
@@ -154,7 +153,7 @@ import {
     `,
   ],
   host: {
-    "[style]": "'--distance: '+ distance() +'; --duration:' + duration() +'s; --start-angle:' + startAngle() +'deg;'",
+    "[style]": "style()",
   },
 })
 export class PlanetComponent {
@@ -165,4 +164,11 @@ export class PlanetComponent {
   distance = computed(()=>(this.index() + 4) * 30);
   duration = computed(()=>300 / Math.sqrt(this.distance()));
   startAngle = signal<number>(360 * Math.random())
+  size = signal<number>(Math.ceil(Math.random() * 60 + 10));
+  style = computed(() => {
+    const distance = this.distance();
+    const duration = this.duration();
+    const startAngle = this.startAngle();
+    return `--size: ${this.size()}px ; --distance: ${distance}; --duration: ${duration}s; --start-angle: ${startAngle}deg;`;
+  })
 }
