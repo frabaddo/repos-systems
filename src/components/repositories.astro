@@ -7,7 +7,9 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
     if (data.message) {
       throw new Error(data.message);
     }
-    return data;
+    return data.map((el: any)=>{
+      return {...el, image: "/github-mark-white.svg" };
+    });
   })
   .catch((error) => {
     console.error("Error fetching repositories:", error);
@@ -17,48 +19,56 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
         name: "Test 1",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
       {
         id: 2,
         name: "Test 2",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
       {
         id: 3,
         name: "Test 3",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
       {
         id: 4,
         name: "Test 4",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
       {
         id: 5,
         name: "Test 5",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
       {
         id: 6,
         name: "Test 6",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
       {
         id: 7,
         name: "Test 7",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
       {
         id: 8,
         name: "Test 8",
         description: "Failed to load repositories.",
         html_url: "",
+        image: "/github-mark-white.svg",
       },
     ];
   });
@@ -112,14 +122,9 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
     }
   
     #costellation-container h2 {
-      color: white;
       position: absolute;
-      top: 1rem;
-      width: 35rem;
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 3rem;
-      letter-spacing: 1rem;
+      top: 2rem;
+      width: calc(100% - 4rem);
       left: 50%;
       transform: translateX(-50%);
     }

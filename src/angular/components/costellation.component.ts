@@ -12,12 +12,16 @@ import { PlanetComponent } from "./planet.component";
         [index]="index"
         [label]="planet.name"
         [url]="planet.html_url"
+        [image]="planet.image"
+        [randomSize]="randomSize()"
+        [mergeCount]="planets().length > 18 ? 4 : planets().length > 12 ? 3 : 2"
+        [mergeAxis]="planets().length > 8 ? true : false"
       ></app-planet>
       }
     </div>
   `,
   host: {
-    "[style]": "'--fix-position:' + fixPosition() +'px'",
+    "[style]": "'--fix-position:' + fixPosition() +'px; --angle:' + angle() + 'deg;'",
   },
   styles: [
     `
@@ -27,7 +31,6 @@ import { PlanetComponent } from "./planet.component";
         perspective: 600px;
         display: block;
         position: relative;
-        --angle: 40deg;
       }
 
       .costellation {
@@ -74,10 +77,12 @@ import { PlanetComponent } from "./planet.component";
   ],
 })
 export class CostellationComponent {
-  message = input<string>();
+  angle = input<number>(40);
 
   planets = input<any[]>([]);
 
-  fixPosition = computed(() => Math.max(0, this.planets().length - 10) * 20);
+  randomSize = input<boolean>(true);
+
+  fixPosition = computed(() => Math.max(0, this.planets().length - 10) * this.angle() / 2);
   
 }

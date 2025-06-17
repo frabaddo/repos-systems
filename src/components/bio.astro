@@ -1,0 +1,43 @@
+<div class="bio-container">
+    <h2 class="sun-title">ABOUT ME</h2>
+    <div class="box not-hoverable">
+        <dic class="content">
+            <p>
+                Sono uno sviluppatore curioso e versatile, con una forte passione per il codice e per tutto ciò che riguarda la sperimentazione tecnologica. Amo esplorare nuovi framework, costruire soluzioni robuste e imparare continuamente, sia attraverso il lavoro che per puro piacere personale.
+            </p>
+            <p>
+                Fuori dall’ambito professionale, sono un fanatico di giochi da tavolo e di ruolo. Questo lato di me alimenta la mia creatività, il mio spirito analitico e la voglia di collaborare per risolvere problemi in modo originale.
+            </p>
+            <p>
+                Il mio approccio è lo stesso in ogni ambito: progettare con attenzione, testare con metodo, migliorare con entusiasmo.
+            </p>
+        </dic>
+    </div>
+</div>
+
+<style>
+    .bio-container {
+        padding: 2rem;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .bio-container .box {
+        max-width: min(40rem, calc(100%));
+        color: #f3f3f3;
+        border-radius: 1.5rem;
+        font-family: 'Cyberverse', 'Segoe UI', 'Arial', sans-serif;
+        font-size: 1.15rem;
+        line-height: 1.7;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+    }
+    .content p {
+        margin-bottom: 1.2em;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .content p:last-child {
+        margin-bottom: 0;
+    }
+</style>

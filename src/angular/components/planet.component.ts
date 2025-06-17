@@ -16,7 +16,7 @@ import {
         <div class="axi">
           <div class="planet-container">
             <a [href]="url()" class="planet">
-              <img src="/github-mark-white.svg" alt="Costellation" />
+              <img [src]="image()" alt="Costellation" />
               <!-- <p>
                     {{ label() }}
                   </p> -->
@@ -33,10 +33,11 @@ import {
         position: absolute;
         top: 50%;
         left: 50%;
-        .orbit-plane{
+        .orbit-plane {
           position: relative;
           transform-style: preserve-3d;
-          transform: rotateX(var(--angle, 40deg)) translate(-50%,-50%) rotateZ(var(--start-angle, 0deg));
+          transform: rotateX(var(--angle, 40deg)) translate(-50%, -50%)
+            rotateZ(var(--start-angle, 0deg));
           opacity: 1;
           transition: all 1s ease;
           transition-delay: calc((var(--distance) * 15ms) - 1500ms);
@@ -68,7 +69,7 @@ import {
           width: 1px;
           position: absolute;
           bottom: 0;
-          .planet-container{
+          .planet-container {
             transform: rotateZ(calc(-1 * var(--start-angle, 0deg)));
             transform-style: preserve-3d;
           }
@@ -87,7 +88,9 @@ import {
             border-radius: 50%;
             background: transparent;
             animation: animatePlanet var(--duration) linear infinite;
-            z-index: calc(var(--distance) * 1px + calc(var(--z-index-fix) * 200px ));
+            z-index: calc(
+              var(--distance) * 1px + calc(var(--z-index-fix) * 200px)
+            );
             &::after {
               content: "";
               background: #ffffff20;
@@ -132,20 +135,20 @@ import {
         }
       }
       @keyframes animatePlanet {
-        0%{
+        0% {
           transform: rotateZ(0deg);
           --z-index-fix: 1;
         }
-        25%{
+        25% {
           --z-index-fix: -1;
         }
-        50%{
+        50% {
           --z-index-fix: -1;
         }
-        75%{
+        75% {
           --z-index-fix: 1;
         }
-        100%{
+        100% {
           transform: rotateZ(-360deg);
           --z-index-fix: 1;
         }
@@ -161,14 +164,34 @@ export class PlanetComponent {
   index = input<number>(0);
   label = input<string>("");
   url = input<string>("");
-  distance = computed(()=>(this.index() + 4) * 30);
-  duration = computed(()=>300 / Math.sqrt(this.distance()));
-  startAngle = signal<number>(360 * Math.random())
-  size = signal<number>(Math.ceil(Math.random() * 60 + 10));
+  image = input<string>("/github-mark-white.svg");
+  mergeAxis = input<boolean>(false);
+  mergeCount = input<number>(4);
+  distance = computed(() =>
+    this.mergeAxis()
+      ? ((this.index() % this.mergeCount() > 0
+          ? this.index() - (this.index() % this.mergeCount())
+          : this.index()) +
+          4) *
+        30
+      : (this.index() + 4) * 30
+  );
+  duration = computed(() => 300 / Math.sqrt(this.distance()));
+  startAngle = computed<number>(() =>
+    this.mergeAxis()
+      ? this.index() % this.mergeCount() > 0
+      ? (320 / this.mergeCount()) * Math.random() + ((360 / this.mergeCount()) * (this.index() % this.mergeCount()))
+      : (320 / this.mergeCount()) * Math.random()
+      : 360 * Math.random()
+  );
+  randomSize = input<boolean>(true);
+  size = computed<number>(() =>
+    this.randomSize() ? Math.ceil(Math.random() * 60 + 10) : 50
+  );
   style = computed(() => {
     const distance = this.distance();
     const duration = this.duration();
     const startAngle = this.startAngle();
     return `--size: ${this.size()}px ; --distance: ${distance}; --duration: ${duration}s; --start-angle: ${startAngle}deg;`;
-  })
+  });
 }
