@@ -1,8 +1,6 @@
 ---
-export const prerender = false
 import { CostellationComponent } from "../angular/components/costellation.component";
 import { StarComponent } from "../angular/components/star.component";
-import { ShootingStarsComponent } from "../angular/components/shootingstars.component"
 const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
   .then((response) => response.json())
   .then((data) => {
