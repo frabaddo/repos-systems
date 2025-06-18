@@ -1,5 +1,6 @@
 ---
 import { CostellationComponent } from "../angular/components/costellation.component";
+import GoDown from "./goDown.astro";
 
 const planets = [
   {
@@ -168,8 +169,9 @@ const planets = [
         client:visible
       />
     </div>
+    <GoDown href="#tools-list"></GoDown>
   </div>
-  <div class="tools-list">
+  <div id="tools-list" class="tools-list">
     {
       planets.map((planet) => {
         return (
