@@ -173,8 +173,8 @@ export class PlanetComponent {
           ? this.index() - (this.index() % this.mergeCount())
           : this.index()) +
           4) *
-        30
-      : (this.index() + 4) * 30
+        25
+      : (this.index() + 4) * 25
   );
   duration = computed(() => 300 / Math.sqrt(this.distance()));
   startAngle = computed<number>(() =>
