@@ -6,7 +6,7 @@
  const { href, direction = "down" } = Astro.props;
 ---
 <div class:list={["go-arrow", direction]}>
-    <a {...(href ? {} : { href })} aria-label="Go to repos list">
+    <a {...(href ? { href } : {})} aria-label="Go to repos list">
       <div class="arrows-container">
         <div class="chevron"></div>
         <div class="chevron"></div>

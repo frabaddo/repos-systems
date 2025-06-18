@@ -1,4 +1,6 @@
 ---
+import GoArrow from "./goArrow.astro";
+
 const photoUrl = "https://media.licdn.com/dms/image/v2/C5603AQFgLsDa8IITaw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1535990684301?e=1755734400&v=beta&t=A3wiwoH5JIFYZrxRX-mcpsrTXUkumNzavDrglcTsNPI";
 const name = "FRANCESCO\nBADIALI";
 const currentRole = "Senior Frontend Web Developer";
@@ -19,17 +21,21 @@ const desiredRole = "Senior Frontend Web Developer - Frontend Tech Leader";
         </div>
       </div>
     </div>
+    <GoArrow href="#tools"></GoArrow>
 </div>
 
 <style>
 .hero-container {
-    padding: 4rem 2rem 0rem 2rem;
+    padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 5rem;
     scroll-snap-align: start;
+    height: 100vh;
+    position: relative;
 }
 .hero-box {
     padding: 2.5rem 2rem 2rem 2rem;
