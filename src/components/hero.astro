@@ -1,6 +1,6 @@
 ---
 const photoUrl = "https://media.licdn.com/dms/image/v2/C5603AQFgLsDa8IITaw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1535990684301?e=1755734400&v=beta&t=A3wiwoH5JIFYZrxRX-mcpsrTXUkumNzavDrglcTsNPI";
-const name = "FRANCESCO BADIALI";
+const name = "FRANCESCO\nBADIALI";
 const currentRole = "Senior Frontend Web Developer";
 const desiredRole = "Senior Frontend Web Developer - Frontend Tech Leader";
 ---
@@ -48,17 +48,14 @@ const desiredRole = "Senior Frontend Web Developer - Frontend Tech Leader";
 .hero-content {
     display: flex;
     align-items: center;
-    /* flex-direction: column; */
+    flex-direction: column;
     gap: 2rem;
 }
 
-.hero-box h1 {
-    text-align: start;
-}
 
 .hero-photo {
-  width: 110px;
-  height: 110px;
+  width: 12rem;
+  height: 12rem;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid #FFD700;
@@ -73,11 +70,12 @@ const desiredRole = "Senior Frontend Web Developer - Frontend Tech Leader";
 }
 
 .hero-name {
-  font-size: 2.2rem;
-  font-family: Cyberverse, sans-serif;
-  font-weight: bold;
-  margin: 0;
-  line-height: 1.1;
+    font-size: 5rem;
+    margin: 0;
+    line-height: 1.1;
+    width:5px;
+    display:table;
+    white-space: pre-wrap;
 }
 
 .hero-role {
@@ -85,10 +83,11 @@ const desiredRole = "Senior Frontend Web Developer - Frontend Tech Leader";
     color: #fff;
     margin-top: 0;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem 0.5rem;
     max-width: 30rem;
-    align-items: flex-start;
+    align-items: center;
+    justify-items: center
 }
 
 .role-label {
@@ -101,7 +100,6 @@ const desiredRole = "Senior Frontend Web Developer - Frontend Tech Leader";
   font-weight: 400;
   color: #fff;
   font-size: 1.1rem;
-  justify-self: flex-start;
 }
 
 .hero-role-desired .role-label {
