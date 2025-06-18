@@ -14,7 +14,7 @@ import { PlanetComponent } from "./planet.component";
         [url]="planet.html_url"
         [image]="planet.image"
         [randomSize]="randomSize()"
-        [mergeCount]="planets().length > 18 ? 4 : planets().length > 12 ? 3 : 2"
+        [mergeCount]="planets().length > 20 ? 5 : planets().length > 16 ? 4 : planets().length > 12 ? 3 : 2"
         [mergeAxis]="planets().length > 8 ? true : false"
       ></app-planet>
       }
