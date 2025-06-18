@@ -1,7 +1,7 @@
 ---
 import { CostellationComponent } from "../angular/components/costellation.component";
 import { StarComponent } from "../angular/components/star.component";
-import GoDown from "./goDown.astro";
+import GoDown from "./goArrow.astro";
 const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
   .then((response) => response.json())
   .then((data) => {

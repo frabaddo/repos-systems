@@ -1,8 +1,12 @@
 ---
- const { href } = Astro.props;
+  interface Props {
+    href?: string;
+    direction?: "up" | "down" | "left" | "right";
+  }
+ const { href, direction = "down" } = Astro.props;
 ---
-<div class="go-down-arrow">
-    <a href={href} aria-label="Go to repos list">
+<div class:list={["go-arrow", direction]}>
+    <a {...(href ? {} : { href })} aria-label="Go to repos list">
       <div class="arrows-container">
         <div class="chevron"></div>
         <div class="chevron"></div>
@@ -12,13 +16,29 @@
   </div>
 </div>
 <style>
-  .go-down-arrow {
+  .go-arrow {
       display: flex;
       justify-content: center;
       position: absolute;
       padding-bottom: 2rem;
       width: 100%;
+    }
+
+    .go-arrow.down {
       bottom: 0;
+    }
+
+    .go-arrow.up {
+      top: 0;
+      transform: rotate(180deg);
+    }
+    .go-arrow.left {
+      left: 0;
+      transform: rotate(90deg);
+    }
+    .go-arrow.right {
+      right: 0;
+      transform: rotate(-90deg);
     }
   
     .arrows-container {
