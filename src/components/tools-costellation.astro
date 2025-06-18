@@ -147,15 +147,15 @@ const planets = [
     name: "GitHub",
     description: "Piattaforma di hosting per progetti Git.",
     html_url: "https://github.com/",
-    image: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg"
+    image: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg",
   },
   {
     id: 21,
     name: "Vite",
     description: "Build tool ultrarapido per progetti web moderni.",
     html_url: "https://vitejs.dev/",
-    image: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vite.svg"
-  }
+    image: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vite.svg",
+  },
 ];
 ---
 
@@ -172,14 +172,18 @@ const planets = [
   <div class="tools-list">
     {
       planets.map((planet) => {
-        return <div class="box">
-          <a href={planet.html_url} target="_blank" rel="noopener noreferrer">
-            <div class="content">
-              <img src={planet.image} alt={planet.name + "_ImageAlt"} />
-              {planet.name}
-            </div>
-          </a>
-        </div>;
+        return (
+          <div class="box">
+            <a href={planet.html_url} target="_blank" rel="noopener noreferrer">
+              <div class="content">
+                  <img src={planet.image} alt={planet.name + "_ImageAlt"} />
+                <h3>
+                  {planet.name}
+                </h3>
+              </div>
+            </a>
+          </div>
+        );
       })
     }
   </div>
@@ -207,18 +211,19 @@ const planets = [
     scroll-snap-align: start;
   }
 
-  .tools-list img{
+  .tools-list img {
     display: inline-block;
     width: 2rem;
     height: 2rem;
     filter: invert(1) brightness(2);
   }
-  .tools-list a{
-   text-decoration: none;
-   color: white;
+
+  .tools-list h3 {
+    margin: 0;
+    font-size: 2rem;
   }
 
-  .tools-list .content{
+  .tools-list .content {
     display: flex;
     align-items: center;
     gap: 1rem;
