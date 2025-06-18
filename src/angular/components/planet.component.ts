@@ -12,7 +12,7 @@ import {
   selector: "app-planet",
   template: `
     <div class="orbit-plane">
-      <div class="orbit">
+      <div class="orbit" [class.show-orbit]="showOrbit()">
         <div class="axi">
           <div class="planet-container">
             <a [href]="url()" class="planet">
@@ -50,7 +50,7 @@ import {
           position: relative;
           transform-style: preserve-3d;
           animation: orbitAnimation var(--duration) linear infinite;
-          &::after {
+          &.show-orbit::after {
             content: "";
             width: calc(var(--distance) * 2px);
             aspect-ratio: 1/1;
@@ -164,6 +164,7 @@ export class PlanetComponent {
   index = input<number>(0);
   label = input<string>("");
   url = input<string>("");
+  showOrbit = input<boolean>(true);
   image = input<string>("/github-mark-white.svg");
   mergeAxis = input<boolean>(false);
   mergeCount = input<number>(4);

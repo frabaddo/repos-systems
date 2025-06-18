@@ -14,7 +14,8 @@ import { PlanetComponent } from "./planet.component";
         [url]="planet.html_url"
         [image]="planet.image"
         [randomSize]="randomSize()"
-        [mergeCount]="planets().length > 20 ? 5 : planets().length > 16 ? 4 : planets().length > 12 ? 3 : 2"
+        [showOrbit]="index % mergeCount() === 0 ? true : false"
+        [mergeCount]="mergeCount()"
         [mergeAxis]="planets().length > 8 ? true : false"
       ></app-planet>
       }
@@ -82,6 +83,8 @@ export class CostellationComponent {
   planets = input<any[]>([]);
 
   randomSize = input<boolean>(true);
+
+  mergeCount = computed(()=> this.planets().length > 20 ? 5 : this.planets().length > 16 ? 4 : this.planets().length > 12 ? 3 : 2)
 
   fixPosition = computed(() => Math.max(0, this.planets().length - 10) * this.angle() / 2);
   
