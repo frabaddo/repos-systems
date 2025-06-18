@@ -40,7 +40,7 @@ import {
             rotateZ(var(--start-angle, 0deg));
           opacity: 1;
           transition: all 1s ease;
-          transition-delay: calc((var(--distance) * 15ms) - 1500ms);
+          transition-delay: calc((var(--distance) * 10ms) - 1500ms);
           @starting-style {
             opacity: 0;
           }
