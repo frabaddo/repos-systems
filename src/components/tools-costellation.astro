@@ -147,7 +147,7 @@ const planets = [
         return <div class="box">
           <a href={planet.html_url} target="_blank" rel="noopener noreferrer">
             <div class="content">
-              <img src={planet.image} alt={planet.name} />
+              <img src={planet.image} alt={planet.name + "_ImageAlt"} />
               {planet.name}
             </div>
           </a>
