@@ -172,6 +172,8 @@ const planets = [
     <GoDown href="#tools-list"></GoDown>
   </div>
   <div id="tools-list" class="tools-list">
+    <h2 class="sun-title">MY TOOLS</h2>
+    <div class="grid">
     {
       planets.map((planet) => {
         return (
@@ -188,6 +190,7 @@ const planets = [
         );
       })
     }
+    </div>
   </div>
 </div>
 
@@ -204,14 +207,32 @@ const planets = [
 
   .tools-list {
     padding: 3rem 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    gap: 2rem;
+    position: relative;
     box-sizing: border-box;
-    align-content: flex-start;
-    justify-content: start;
     scroll-snap-align: start;
   }
+
+  @media (max-width: 1000px) {
+      .tools-costellation-container {
+        display: none;
+      }
+    }
+    @media (min-width: 1000px) {
+      .tools-list h2 {
+        display: none;
+      }
+    }
+
+    .tools-list h2{
+      margin-bottom: 3rem;
+    }
+
+    .tools-list .grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 4rem;
+      align-content: flex-start;
+    }
 
   .tools-list img {
     display: inline-block;
@@ -230,7 +251,7 @@ const planets = [
     gap: 1rem;
     font-size: 2rem;
   }
-  h2 {
+  .tools-costellation-container h2 {
     margin-bottom: 0;
     position: absolute;
     top: 2rem;

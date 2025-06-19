@@ -79,14 +79,11 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
     <div id="costellation-container">
       <h2 class="sun-title">My Repositories</h2>
       <CostellationComponent {...({ planets: repos } as any)} client:visible/>
-      <StarComponent {...({ type: 0 } as any)} />
-      <StarComponent {...({ type: 1 } as any)} />
-      <StarComponent {...({ type: 2 } as any)} />
-      <StarComponent {...({ type: 3 } as any)} />
-
-     <GoDown href="#repos-container"></GoDown>
-
+      <GoDown href="#repos-container"></GoDown>
+    </div>
     <div id="repos-container">
+      <h2 class="sun-title">My Repositories</h2>
+      <div class="grid">
       {
         repos.map((repo) => (
           <div class="box">
@@ -102,6 +99,7 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
           </div>
         ))
       }
+      </div>
     </div>
   
   <style>
@@ -120,6 +118,17 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
       left: 50%;
       transform: translateX(-50%);
     }
+
+    @media (max-width: 1000px) {
+      #costellation-container {
+        display: none;
+      }
+    }
+    @media (min-width: 1000px) {
+      #repos-container h2 {
+        display: none;
+      }
+    }
   
     .box .content {
       display: flex;
@@ -129,13 +138,20 @@ const repos: any[] = await fetch("https://api.github.com/users/frabaddo/repos")
     }
 
     #repos-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-      gap: 4rem;
       padding: 2rem 8rem 5rem 8rem;
       scroll-snap-align: start;
       box-sizing: border-box;
       min-height: 100vh;
+    }
+
+    #repos-container h2{
+      margin-bottom: 3rem;
+    }
+
+    #repos-container .grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 4rem;
       align-content: flex-start;
     }
   

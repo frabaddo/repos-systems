@@ -16,8 +16,12 @@ import { Component, computed, input } from "@angular/core";
         height: var(--size, 2px);
         border-radius: 50%;
         background: transparent;
-        animation: animStar var(--duration) linear infinite;
         box-shadow: var(--box-shadow);
+      }
+      @media only screen and (min-width: 1000px) {
+        .star {
+          animation: animStar var(--duration) linear infinite;
+        }
       }
       @keyframes animStar {
         0% {

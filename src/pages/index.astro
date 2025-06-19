@@ -5,6 +5,7 @@ import Experiences from "../components/experiences.astro";
 import Bio from "../components/bio.astro";
 import ToolsCostellation from "../components/tools-costellation.astro";
 import Hero from "../components/hero.astro";
+import { StarComponent } from "../angular/components/star.component";
 ---
 
 <Layout>
@@ -16,6 +17,11 @@ import Hero from "../components/hero.astro";
     <Repositories></Repositories>
   </div>
   
+  <StarComponent {...({ type: 0 } as any)} />
+  <StarComponent {...({ type: 1 } as any)} />
+  <StarComponent {...({ type: 2 } as any)} />
+  <StarComponent {...({ type: 3 } as any)} />
+
   <style is:global>
     body,
       html {
