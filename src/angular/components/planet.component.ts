@@ -49,7 +49,6 @@ import {
           animation-composition: add;
           position: relative;
           transform-style: preserve-3d;
-          animation: orbitAnimation var(--duration) linear infinite;
           &.show-orbit::after {
             content: "";
             width: calc(var(--distance) * 2px);
@@ -63,6 +62,12 @@ import {
             pointer-events: none;
           }
         }
+
+        @media only screen and (min-width: 1000px) {
+          .orbit{
+            animation: orbitAnimation var(--duration) linear infinite;
+          }
+        }
         .axi {
           transform-style: preserve-3d;
           height: calc(var(--distance) * 1px);
@@ -72,6 +77,11 @@ import {
           .planet-container {
             transform: rotateZ(calc(-1 * var(--start-angle, 0deg)));
             transform-style: preserve-3d;
+          }
+          @media only screen and (min-width: 1000px) {
+            .planet{
+              animation: animatePlanet var(--duration) linear infinite;
+            }
           }
           .planet {
             --z-index-fix: 1;
@@ -87,7 +97,6 @@ import {
             align-items: anchor-center;
             border-radius: 50%;
             background: transparent;
-            animation: animatePlanet var(--duration) linear infinite;
             z-index: calc(
               var(--distance) * 1px + calc(var(--z-index-fix) * 200px)
             );

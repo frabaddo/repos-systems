@@ -48,10 +48,19 @@ import { PlanetComponent } from "./planet.component";
         width: 3rem;
         aspect-ratio: 1/1;
         background: radial-gradient(circle at center, #FFD700, #FFA500);
-        animation: animateSun 10s linear infinite;
         border-radius: 50%;
         transform-style: preserve-3d;
         z-index: 200;
+        box-shadow: 
+          0 0 30px 10px #FFD700, 
+          0 0 60px 20px #FFA500, 
+          0 0 100px 40px #FF8C00;
+      }
+      
+      @media only screen and (min-width: 1000px) {
+        #sun{
+          animation: animateSun 10s linear infinite;
+        }
       }
 
       @keyframes animateSun {
